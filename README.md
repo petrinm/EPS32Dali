@@ -7,3 +7,57 @@ ESP32Dali is project to interface with [DALI](https://en.wikipedia.org/wiki/Digi
 ![ESP32Dali back side](https://raw.githubusercontent.com/petrinm/ESP32Dali/refs/heads/main/hw/ESPDali_back.jpg)
 
 The project is licenced under MIT license.
+
+# Example configuration
+
+```yaml
+esphome:
+  name: livingroom
+  friendly_name: Livingroom
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+light:
+  - platform: monochromatic
+    name: "LED strip"
+    output: dali_output
+
+dali:
+  id: dali_if
+  tx_pin:
+    number: 17
+    inverted: true
+  rx_pin:
+    number: 16
+    inverted: true
+
+output:
+  - platform: dali
+    id: dali_output
+    interface: dali_if
+    address: 5
+```
+
+Run
+```bash
+$ esphome run livingroom.yaml
+```
+
+
+## Installing ESP32Dali as external component
+
+https://esphome.io/components/external_components
+
+
+```yaml
+external_components:
+  - source:
+      type: git
+      url: https://github.com/petrinm/ESP32Dali.git
+    components: [ dali ]
+```
+
+
